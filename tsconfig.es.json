@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2015",
+    "noEmit": false,
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}
