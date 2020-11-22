@@ -1,21 +1,21 @@
-import { calcTemplateBlock } from "./calcTemplateBlock";
-import { IBlockMeta } from "./blockMeta";
-import { addToken } from "./addToken";
-import StateBlock from "markdown-it/lib/rules_block/state_block";
-import { Debug } from "./debug";
+import { calcTemplateBlock } from './calcTemplateBlock';
+import { IBlockMeta } from './blockMeta';
+import { addToken } from './addToken';
+import StateBlock from 'markdown-it/lib/rules_block/state_block';
+import { Debug } from './debug';
 
-let debug = Debug("markdown:slot-tokens");
+let debug = Debug('v-press-plus:slot-tokens');
 
 export function addSlotBasedTokens(
   state: StateBlock,
   meta: IBlockMeta,
   contentBlock: string,
   startLine: number,
-  endLine: number
+  endLine: number,
 ) {
   const mdSlotOpenTag = [...meta.interior.matchAll(/<template.*?[^/]>/gs)]
-    .map((i) => i[0])
-    .filter((i) => i.includes("md-slot"));
+    .map(i => i[0])
+    .filter(i => i.includes('md-slot'));
 
   debug(`this tag's interior does have "md-slot" content`);
   debug(`there are ${mdSlotOpenTag.length} template tags with md-slot set`);
@@ -24,7 +24,7 @@ export function addSlotBasedTokens(
     acc.push(calcTemplateBlock(contentBlock, slotTag, startLine));
     return acc;
   }, [] as [number, number][]);
-  debug("line number boundaries for md-slot tags:", lineNumbers);
+  debug('line number boundaries for md-slot tags:', lineNumbers);
 
   let sl = startLine;
   lineNumbers.forEach((ln, idx) => {
@@ -37,4 +37,6 @@ export function addSlotBasedTokens(
     }
     sl = end + 1;
   });
+
+  return true;
 }

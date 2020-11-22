@@ -1,3 +1,2 @@
-import { htmlBlock } from "./plugin";
-
-export default htmlBlock;
+export * from "./vitepress-plugin";
+export * from "./vuepress-plugin";

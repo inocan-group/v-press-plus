@@ -7,12 +7,16 @@
   "typings": "dist/types/index.js",
   "scripts": {
     "clear": "rimraf dist/*",
-    "build": "run-s clear build:lib build:types",
+    "build": "run-s clear build:lib build:types test",
     "build:analyze": "ANALYZE=true yarn build",
     "build:closure": "node ./devops/build cjs es --min --closure",
     "build:lib": "node ./devops/build cjs es --min",
     "build:types": "echo - Building types && tsc -P tsconfig.es.json --outDir dist/types --declaration --emitDeclarationOnly",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs": "yarn vuepress dev docs",
+    "docs:debug": "DEBUG=v-press-plus TERM=xterm-color yarn vuepress dev docs 2>&1 >/dev/null | sed s/\\033//g ",
+    "docs:build": "yarn vuepress build docs",
+    "test": "yarn uvu tests -r ts-node/register",
+    "watch": "watchlist src -- yarn build"
   },
   "author": "Ken Snyder <ken@ken.net>",
   "license": "MIT",
@@ -34,7 +38,11 @@
     "rollup-plugin-analyzer": "^3.3.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.29.0",
-    "typescript": "^4.1.2"
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2",
+    "uvu": "^0.4.1",
+    "vuepress": "^1.7.1",
+    "watchlist": "^0.2.3"
   },
   "optionalDependencies": {
     "markdown-it": "^12.0.2"

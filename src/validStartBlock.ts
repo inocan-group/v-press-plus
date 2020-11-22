@@ -1,7 +1,7 @@
 import { Debug } from "./debug";
 import { HTML_SEQUENCES } from "./patterns";
 
-const debug = Debug("markdown:start-block");
+const debug = Debug("v-press-plus:start-block");
 
 export function validStartBlock(lineText: string, silent: boolean) {
   let i;

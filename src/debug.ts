@@ -1,11 +1,13 @@
-import { redBright, red } from "chalk";
+import { color } from './colorize';
 
 export function Debug(offset: string) {
   return (...args: any[]) => {
     const [type, subType] = [
-      redBright(offset.split(":").slice(0, 1).pop()),
-      red(offset.split(":").slice(1).join(":")),
+      color.red(offset.split(':').slice(0, 1).pop()),
+      color.magenta(offset.split(':').slice(1).join(':')),
     ];
-    console.error(`${type}:${subType} -> `, ...args);
+    if (process.env.DEBUG?.includes('v-press-plus')) {
+      console.error(`${type}${color.yellow(':')}${subType}${color.yellow('->')} `, ...args);
+    }
   };
 }

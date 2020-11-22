@@ -1,6 +1,6 @@
 import { Debug } from "./debug";
 
-const debug = Debug("markdown");
+const debug = Debug("v-press-plus");
 
 export interface IBlockMeta {
   /** the HTML element tag name */

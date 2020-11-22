@@ -1,4 +1,4 @@
-import StateBlock from "markdown-it/lib/rules_block/state_block";
+import StateBlock from 'markdown-it/lib/rules_block/state_block';
 /**
  * **htmlBlock**
  *
@@ -17,4 +17,4 @@ import StateBlock from "markdown-it/lib/rules_block/state_block";
  * rule should not be applied. The value of `true` ensures the rule is
  * applied.
  */
-export declare const htmlBlock: (...components: string[]) => (state: StateBlock, startLine: number, endLine: number, silent: boolean) => boolean | void;
+export declare const htmlBlock: (...components: string[]) => (state: StateBlock, startLine: number, endLine: number, silent: boolean) => boolean;

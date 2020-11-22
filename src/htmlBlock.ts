@@ -1,14 +1,14 @@
-import StateBlock from "markdown-it/lib/rules_block/state_block";
-import { dasherize } from "native-dash";
-import { addSlotBasedTokens } from "./addSlotBasedTokens";
-import { addToken } from "./addToken";
-import { blockMeta } from "./blockMeta";
-import { calcLineNumber } from "./calcLineNumber";
-import { Debug } from "./debug";
-import { blockNames, END_TAG, HTML_SEQUENCES } from "./patterns";
-import { validStartBlock } from "./validStartBlock";
+import StateBlock from 'markdown-it/lib/rules_block/state_block';
+import { dasherize } from 'native-dash';
+import { addSlotBasedTokens } from './addSlotBasedTokens';
+import { addToken } from './addToken';
+import { blockMeta } from './blockMeta';
+import { calcLineNumber } from './calcLineNumber';
+import { Debug } from './debug';
+import { blockNames, END_TAG, HTML_SEQUENCES } from './patterns';
+import { validStartBlock } from './validStartBlock';
 
-let debug = Debug("markdown:htmlBlock");
+let debug = Debug('v-press-plus:htmlBlock');
 
 /**
  * **htmlBlock**
@@ -30,21 +30,21 @@ let debug = Debug("markdown:htmlBlock");
  */
 export const htmlBlock = (...components: string[]) => {
   if (components && components.length > 0) {
-    components = components.map((c) => dasherize(c));
-    debug("the following VueJS components will be treated as BLOCK elements: ", components);
+    components = components.map(c => dasherize(c));
+    debug('the following VueJS components will be treated as BLOCK elements: ', components);
   } else {
     debug(
-      'no VueJS components were registered to be treated as BLOCK elements; you may add the "md-block" property to a component to make it become a block element.'
+      'no VueJS components were registered to be treated as BLOCK elements; you may add the "md-block" property to a component to make it become a block element.',
     );
   }
-  return (state: StateBlock, startLine: number, endLine: number, silent: boolean) => {
+  return (state: StateBlock, startLine: number, endLine: number, silent: boolean): boolean => {
     let i, nextLine, lineText;
     let pos = state.bMarks[startLine] + state.tShift[startLine];
     let max = state.eMarks[startLine];
     /** the content block starting at the `pos` */
     const contentBlock = state.src.slice(pos);
     lineText = state.src.slice(pos, max);
-    debug("evaluating", { src: state.src.slice(pos, max), pos, max });
+    debug('evaluating', { src: state.src.slice(pos, max), pos, max });
 
     if (END_TAG.test(contentBlock)) {
       debug(`returning false for bare end tag:`, contentBlock);
@@ -62,7 +62,7 @@ export const htmlBlock = (...components: string[]) => {
 
     if (state.sCount[startLine] - state.blkIndent >= 4) {
       debug(
-        `- returning false due to indentation [ ${state.sCount[startLine]}, ${state.blkIndent} ]; if it's indented more than 3 spaces, it should be a code block.`
+        `- returning false due to indentation [ ${state.sCount[startLine]}, ${state.blkIndent} ]; if it's indented more than 3 spaces, it should be a code block.`,
       );
       return false;
     }
@@ -77,12 +77,12 @@ export const htmlBlock = (...components: string[]) => {
         const endLine = calcLineNumber(meta.closure, contentBlock, startLine);
         debug(`${meta.tag} is a BLOCK element [ ${startLine}, ${endLine} ]`);
 
-        return meta.interior.includes("md-slot")
+        return meta.interior.includes('md-slot')
           ? addSlotBasedTokens(state, meta, contentBlock, startLine, endLine)
           : addToken(state, startLine, endLine);
       } else {
         debug(
-          `- ${meta.tag} is an INLINE element [ ${startLine}, ${endLine} ] so returning false to prevent block rule`
+          `- ${meta.tag} is an INLINE element [ ${startLine}, ${endLine} ] so returning false to prevent block rule`,
         );
         return false;
       }
@@ -128,14 +128,8 @@ export const htmlBlock = (...components: string[]) => {
       }
     }
 
-    debug(
-      `adding token to "${
-        meta ? meta.tag : contentBlock
-      }" [ ${startLine} -> ${nextLine} ], ending: ${lineText} ]`
-    );
+    debug(`adding token to "${meta ? meta.tag : contentBlock}" [ ${startLine} -> ${nextLine} ], ending: ${lineText} ]`);
     addToken(state, startLine, nextLine);
     return true;
   };
 };
-
-module.exports = { htmlBlock };

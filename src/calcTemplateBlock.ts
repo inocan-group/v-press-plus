@@ -1,6 +1,6 @@
 import { Debug } from "./debug";
 
-let debug = Debug("markdown:calcTemplateBlock");
+let debug = Debug("v-press-plus:calcTemplateBlock");
 
 /**
  * Identifies the start and end line numbers for a `<template> ... </template>` block
