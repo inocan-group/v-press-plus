@@ -140,7 +140,7 @@ While **Vitepress** doesn't provide a _plugin_ mechanism it still provides you a
      # yarn
      yarn add --dev v-press-plus
      # npm
-     npm install v-press-plus
+     npm install --save-dev v-press-plus
      ```
 
 2. Add to your config file:
