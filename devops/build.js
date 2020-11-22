@@ -18,8 +18,6 @@ const switches = process.argv
     return acc;
   }, {});
 
-const usesTypescript = Object.keys(pkg.devDependencies).includes('typescript') ? true : false;
-
 // makes all non-core deps external; allowing consuming app to gain better reuse
 const external = [
   ...(pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : []),
@@ -32,7 +30,7 @@ const globals = {};
 
 // Rollup configuration for the passed in module system
 const moduleConfig = (moduleSystem, minimized) => {
-  const input = moduleSystem === 'cjs' ? 'src/vuepress-plugin.ts' : 'src/vitepress-plugin.ts';
+  const input = switches.vitepress ? 'src/vitepress-plugin.ts' : 'src/vuepress-plugin.ts';
 
   return {
     input,
@@ -59,7 +57,7 @@ async function buildModule(m, min) {
   const bundle = await rollup.rollup(moduleConfig(m, min));
   await bundle.write({
     ...(usesGlobalVars(m) ? { name: pkg.name.replace(/-/g, ''), globals } : {}),
-    file: `dist/${m}/index${min ? '.min' : ''}.js`,
+    file: `dist/${switches.vitepress ? 'vitepress' : 'vuepress'}/index${min ? '.min' : ''}.js`,
     format: m,
     exports: 'auto',
     sourcemap: false,

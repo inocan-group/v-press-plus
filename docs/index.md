@@ -108,7 +108,7 @@ This repo represents a _plugin_ for **Vuepress** and an importable NPM module yo
 2. Add to your docs configuration:
 
    Simple config is:
-   `docs/.vitepress/config.js`
+   `docs/.vuepress/config.js`
    ```js
     module.exports = {
         // ...
@@ -118,7 +118,7 @@ This repo represents a _plugin_ for **Vuepress** and an importable NPM module yo
 
     If you want to register certain components as always being _block_ html elements:
 
-    `docs/.vitepress/config.js`
+    `docs/.vuepress/config.js`
     ```js
     module.exports = {
         // ...
@@ -149,7 +149,7 @@ While **Vitepress** doesn't provide a _plugin_ mechanism it still provides you a
 
     `docs/.vitepress/config.js`:
     ```js
-    const markdown = require("v-press-plus").markdown;
+    const markdown = require("v-press-plus/dist/vitepress").markdown;
 
     module.exports = {
         // ...
@@ -160,9 +160,9 @@ While **Vitepress** doesn't provide a _plugin_ mechanism it still provides you a
 
     This approach will get you up and running but if you want to pre-register some VueJS components (aka, so they'll always be treated as HTML Block elements), or you want to modify the `markdown` property in other ways than just this plugin, you can do the following instead:
 
-        `docs/.vitepress/config.js`:
+   `docs/.vitepress/config.js`:
     ```js
-    const htmlBlock = require("v-press-plus").htmlBlock;
+    const htmlBlock = require("v-press-plus/dist/vitepress/index").htmlBlock;
 
     module.exports = {
         // ...
