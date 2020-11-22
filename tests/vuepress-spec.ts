@@ -16,8 +16,8 @@ t('entry points are available', () => {
 t('main entry point is correct plugin function', () => {
   const plugin = require(main);
   assert.type(plugin, 'function', 'the plugin should be exposed as a function');
-  assert.ok(plugin.toString().includes('(options'), `options param seems to be missing:\n${plugin.toString()}`);
-  assert.ok(plugin.toString().includes('extendMarkdown: md'), 'extendMarkdown handler is missing');
+  assert.type(plugin(), 'object', `calling the plugin returns an object`);
+  assert.equal(plugin().name, 'v-press-plus');
 });
 
 t.run();
