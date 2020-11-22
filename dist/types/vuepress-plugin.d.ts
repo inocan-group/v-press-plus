@@ -6,5 +6,14 @@ interface IVuepressPlugin {
     name: string;
     extendMarkdown?: (md: MarkdownIt) => void;
 }
-declare const _default: (options?: Record<'components', string[]>) => IVuepressPlugin;
+interface IVuepressContext {
+    isProd: boolean;
+    pages: Record<string, unknown>[];
+    sourceDir: string;
+    tempPath: string;
+    outDir: string;
+    base: string;
+    writeTemp: Function;
+}
+declare const _default: (options: Record<"components", string[]> | undefined, ctx: IVuepressContext) => IVuepressPlugin;
 export default _default;

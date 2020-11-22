@@ -1,10 +1,1 @@
-Plugin path is: "/Volumes/Coding/inocan/open-source/v-press-plus/dist/cjs/index.js", import is: (options = { components: [] }) => {
-    console.error('registering vuepress PLUGIN', options);
-    const markdown = htmlBlock();
-    return {
-        name: 'v-press-plus',
-        extendMarkdown: md => {
-            md.block.ruler.at('html_block', markdown);
-        },
-    };
-}, typeof is function
+Plugin path is: "/Volumes/Coding/inocan/open-source/v-press-plus/dist/cjs/index.js", import is: (a={components:[]},b)=>{console.error("registering vuepress PLUGIN",a,b);let c=htmlBlock();return{name:"v-press-plus",extendMarkdown:a=>{a.block.ruler.at("html_block",c)}}}, typeof is function

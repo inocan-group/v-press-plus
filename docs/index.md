@@ -145,11 +145,34 @@ While **Vitepress** doesn't provide a _plugin_ mechanism it still provides you a
 
 2. Add to your config file:
 
+   The simplest way to add to your config is as follows:
+
     `docs/.vitepress/config.js`:
     ```js
-    const vPressPlus = require("v-press-plus").vitepress;
+    const markdown = require("v-press-plus").markdown;
 
-    module.exports 
+    module.exports = {
+        // ...
+        markdown,
+        // ...
+    } 
+    ```
+
+    This approach will get you up and running but if you want to pre-register some VueJS components (aka, so they'll always be treated as HTML Block elements), or you want to modify the `markdown` property in other ways than just this plugin, you can do the following instead:
+
+        `docs/.vitepress/config.js`:
+    ```js
+    const htmlBlock = require("v-press-plus").htmlBlock;
+
+    module.exports = {
+        // ...
+        markdown: {
+            config: md => {
+                md.block.ruler.at('html_block', htmlBlock('component-1', 'component-2'));
+            }
+        },
+        // ...
+    } 
     ```
 
  
