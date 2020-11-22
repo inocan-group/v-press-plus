@@ -7,8 +7,8 @@
   "typings": "dist/types/index.js",
   "scripts": {
     "clear": "rimraf dist/*",
-    "build": "run-s clear build:lib build:types test",
-    "build:analyze": "ANALYZE=true yarn build",
+    "build": "run-s clear build:closure build:types test",
+    "build:analyze": "ANALYZE=true node ./devops/build es --closure",
     "build:closure": "node ./devops/build cjs es --min --closure",
     "build:lib": "node ./devops/build cjs es --min",
     "build:types": "echo - Building types && tsc -P tsconfig.es.json --outDir dist/types --declaration --emitDeclarationOnly",
@@ -21,7 +21,8 @@
   "author": "Ken Snyder <ken@ken.net>",
   "license": "MIT",
   "dependencies": {
-    "native-dash": "^1.5.1"
+    "native-dash": "^1.6.1",
+    "markdown-it": "12"
   },
   "devDependencies": {
     "@ampproject/rollup-plugin-closure-compiler": "^0.26.0",
@@ -29,9 +30,7 @@
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@types/markdown-it": "^10.0.3",
     "@types/node": "^14.14.9",
-    "chalk": "^4.1.0",
     "debug": "^4.3.1",
-    "markdown-it": "^12.0.2",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.33.3",
@@ -43,8 +42,5 @@
     "uvu": "^0.4.1",
     "vuepress": "^1.7.1",
     "watchlist": "^0.2.3"
-  },
-  "optionalDependencies": {
-    "markdown-it": "^12.0.2"
   }
 }

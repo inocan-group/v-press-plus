@@ -33,7 +33,7 @@ const globals = {};
 // Rollup configuration for the passed in module system
 const moduleConfig = (moduleSystem, minimized) => {
   const input = moduleSystem === 'cjs' ? 'src/vuepress-plugin.ts' : 'src/vitepress-plugin.ts';
-  console.log({ input });
+
   return {
     input,
     external,

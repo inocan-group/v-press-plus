@@ -10,21 +10,21 @@ interface IVuepressPlugin {
   extendMarkdown?: (md: MarkdownIt) => void;
 }
 
-// interface IVuepressContext {
-//   isProd: boolean;
-//   pages: Record<string, unknown>[];
-//   sourceDir: string;
-//   tempPath: string;
-//   outDir: string;
-//   base: string;
-//   writeTemp: Function;
-// }
+interface IVuepressContext {
+  isProd: boolean;
+  pages: Record<string, unknown>[];
+  sourceDir: string;
+  tempPath: string;
+  outDir: string;
+  base: string;
+  writeTemp: Function;
+}
 
 export default (
   options: Record<'components', string[]> = { components: [] },
-  // ctx: IVuepressContext,
+  ctx: IVuepressContext,
 ): IVuepressPlugin => {
-  console.error('registering vuepress PLUGIN', options);
+  console.error('registering vuepress PLUGIN', options, ctx);
   const markdown = htmlBlock();
 
   return {

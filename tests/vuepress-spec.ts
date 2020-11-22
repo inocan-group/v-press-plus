@@ -5,8 +5,8 @@ import { join } from 'path';
 
 const t = suite('vuepress plugin');
 
-const main = join(process.cwd(), 'dist/cjs/index.js');
-const mainMin = join(process.cwd(), 'dist/cjs/index.min.js');
+const main = join(process.cwd(), './dist/cjs/index.js');
+const mainMin = join(process.cwd(), './dist/cjs/index.min.js');
 
 t('entry points are available', () => {
   assert.ok(existsSync(main));
@@ -15,8 +15,8 @@ t('entry points are available', () => {
 
 t('main entry point is correct plugin function', () => {
   const plugin = require(main);
-  assert.type(plugin, 'function');
-  assert.ok(plugin.toString().includes('(options'), 'options param seems to be missing');
+  assert.type(plugin, 'function', 'the plugin should be exposed as a function');
+  assert.ok(plugin.toString().includes('(options'), `options param seems to be missing:\n${plugin.toString()}`);
   assert.ok(plugin.toString().includes('extendMarkdown: md'), 'extendMarkdown handler is missing');
 });
 
