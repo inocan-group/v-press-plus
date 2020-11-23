@@ -1,3 +1,6 @@
+---
+sidebarDepth: 3
+---
 # `v-press-plus`
 
 > Better support for VueJS components in Vuepress and Vitepress
@@ -9,87 +12,88 @@
 
 This repo's goal is to improve the way that VueJS components can interact with content on a Markdown page. To be more specific, we're concerned with making sure that the following use cases are fully supported:
 
-1. **Vue Components as Block Elements** 
+### **1. Vue Components as Block Elements** 
 
-    Allows all tags which include the `md-block` property to be seen as block HTML elements.
-    
-    In Markdown, a _block_ element's interior is NOT treated as Markdown whereas with _inline_ elements it is. This means -- per the spec -- that a `span` tag within your markdown is _inline_ and it's interior content should be processed as markdown. In contrast, a `div` is a _block_ element and therefore content in it's interior should just be left "as is".
+Allows all tags which include the `md-block` property to be seen as block HTML elements.
 
-    When it comes to _custom components_ -- which is what the Markdown parsing engine will see your VueJS components as -- they are seen as _inline_ elements and this means it will convert your interior content into what it believes is markdown into HTML _before_ your component gets a chance to look. If you have something like this in your markdown:
 
-    ```md
-    # My Page
+In Markdown, a _block_ element's interior is NOT treated as Markdown whereas with _inline_ elements it is. This means -- per the spec -- that a `span` tag within your markdown is _inline_ and it's interior content should be processed as markdown. In contrast, a `div` is a _block_ element and therefore content in it's interior should just be left "as is".
 
-    <my-table>
-    <template #name="{row}">
-        <span class="font-semiBold">{{row.name}}</span>
-    </template>
-    </my-table>
-    ```
-    
-    things are going to end in tears as `<my-table>` is considered an inline element and your interior scope has been converted in an undesirable way. With this plugin you can simply add the `md-block` flag like so:
+When it comes to _custom components_ -- which is what the Markdown parsing engine will see your VueJS components as -- they are seen as _inline_ elements and this means it will convert your interior content into what it believes is markdown into HTML _before_ your component gets a chance to look. If you have something like this in your markdown:
 
-    ```md
-    <my-table md-block> ... </my-table>
-    ```
+```md
+# My Page
 
-    Now your component is a block component and any cut-and-paste of template code from a working Vue app into Vue/Vitepress and it will just work.
+<my-table>
+<template #name="{row}">
+    <span class="font-semiBold">{{row.name}}</span>
+</template>
+</my-table>
+```
 
-2. **Inline Elements**
+things are going to end in tears as `<my-table>` is considered an inline element and your interior scope has been converted in an undesirable way. With this plugin you can simply add the `md-block` flag like so:
 
-    Allows all tags which include the `md-block` property to be seen as block HTML elements.
+```md
+<my-table md-block> ... </my-table>
+```
 
-    Components which should be _inline_ elements should in fact behave as inline elements. In Vue/Vitepress all your Vue components will be defaulted to this configuration and sometimes that _is_ what you want. This is most typically the case when you are building a component, specifically for the Vue/Vitepress platform (and therefore have an expectation that your interior scope will be transformed from an assumed Markdown base).
+Now your component is a block component and any cut-and-paste of template code from a working Vue app into Vue/Vitepress and it will just work.
 
-    With this plugin, you'll find your VueJS components which you wish to be _inline_ should just work more consistently. One obvious, non-spec compliant aspect of the pre-plugin Markdown in Vue/Vitepress is seen when viewing the following markdown:
+### **2. Inline Elements**
 
-    ```md
-    # Non Spec Compliant 
+Allows all tags which include the `md-block` property to be seen as block HTML elements.
 
-    <span style="color:red">_my red shoes_</span>
-    <div style="color:red">_my red shoes_</div>
-    ```
+Components which should be _inline_ elements should in fact behave as inline elements. In Vue/Vitepress all your Vue components will be defaulted to this configuration and sometimes that _is_ what you want. This is most typically the case when you are building a component, specifically for the Vue/Vitepress platform (and therefore have an expectation that your interior scope will be transformed from an assumed Markdown base).
 
-    This should show two lines of red text, however, only the span tag should be italized as the div tag is a block element so the convertion of markdown to HTML should _not_ have been applied. However, by default Vue/Vitepress transform both making them behave identically. 
-    
-    With no adjustments made, this will be corrected to be spec-compliant when using this plugin.
+With this plugin, you'll find your VueJS components which you wish to be _inline_ should just work more consistently. One obvious, non-spec compliant aspect of the pre-plugin Markdown in Vue/Vitepress is seen when viewing the following markdown:
 
-3. **Structured Inline**
+```md
+# Non Spec Compliant 
 
-    There is a third category which this plugin hopes to introduce soon. It is partially supported today. There are a whole set of cool VueJS components which could be used in a Vue/Vitepress world which use _slots_ but also want to leverage the rendering markdown engine. A good example might be:
+<span style="color:red">_my red shoes_</span>
+<div style="color:red">_my red shoes_</div>
+```
 
-    ```html
-    <two-columns md-hybrid>
-      <slot #left="{name}">
-        ## {{name}}'s Left Brain says
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-      </slot>
-      <slot #right>
-         ## My Right Brains says
-      </slot>
-    </two-columns>
-    ```
+This should show two lines of red text, however, only the span tag should be italized as the div tag is a block element so the convertion of markdown to HTML should _not_ have been applied. However, by default Vue/Vitepress transform both making them behave identically. 
 
-    In the above example, the `md-hybrid` keyword would make the element a _block element_ but the code would be wrapped in a way that the markdown processor would be passed down to the slot templates and allow for slots to be _pre-processed_ so that `variables` can be replaced in the markdown prior to being converted to HTML. This solution is not started yet.
+With no adjustments made, this will be corrected to be spec-compliant when using this plugin.
 
-    A potentially simpler model which has the beginning of implementation in place is as follows:
+### **3. Structured Inline**
 
-    ```md
-    <two-columns>
-      <slot #left="{name}">
-        <my-component>...</my-component>
-      </slot>
-      <slot #right md-slot>
-         ```html
-        <my-component>...</my-component>
-         ```
-      </slot>
-    </two-columns>
-    ```
+There is a third category which this plugin hopes to introduce soon. It is partially supported today. There are a whole set of cool VueJS components which could be used in a Vue/Vitepress world which use _slots_ but also want to leverage the rendering markdown engine. A good example might be:
 
-    Here we see use of the `md-slot` container in the second slot. The intent is that this will convert the surrounding `<two-columns>` to become a _block_ element but with the interior of this one slot being left open to being transformed by the markdown parser.
+```html
+<two-columns md-hybrid>
+    <slot #left="{name}">
+    ## {{name}}'s Left Brain says
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+    </slot>
+    <slot #right>
+        ## My Right Brains says
+    </slot>
+</two-columns>
+```
 
-    Getting either of these to work requires a bit of understanding of Markdown-it's API (which is very well documented) and then the handoff between it and VueJS. I didn't know anything about MarkdownIt's API a day ago so it's hard for me to know the best approach but very welcome to PR's if others know more.
+In the above example, the `md-hybrid` keyword would make the element a _block element_ but the code would be wrapped in a way that the markdown processor would be passed down to the slot templates and allow for slots to be _pre-processed_ so that `variables` can be replaced in the markdown prior to being converted to HTML. This solution is not started yet.
+
+A potentially simpler model which has the beginning of implementation in place is as follows:
+
+```md
+<two-columns>
+    <slot #left="{name}">
+    <my-component>...</my-component>
+    </slot>
+    <slot #right md-slot>
+        ```html
+    <my-component>...</my-component>
+        ```
+    </slot>
+</two-columns>
+```
+
+Here we see use of the `md-slot` container in the second slot. The intent is that this will convert the surrounding `<two-columns>` to become a _block_ element but with the interior of this one slot being left open to being transformed by the markdown parser.
+
+Getting either of these to work requires a bit of understanding of Markdown-it's API (which is very well documented) and then the handoff between it and VueJS. I didn't know anything about MarkdownIt's API a day ago so it's hard for me to know the best approach but very welcome to PR's if others know more.
 
 
 This repo represents a _plugin_ for **Vuepress** and an importable NPM module you can easily bring into your **Vitepress** config (Vitepress doesn't -- at least yet -- support the concept of a plugin).
@@ -108,7 +112,7 @@ This repo represents a _plugin_ for **Vuepress** and an importable NPM module yo
 2. Add to your docs configuration:
 
    Simple config is:
-   `docs/.vitepress/config.js`
+   `docs/.vuepress/config.js`
    ```js
     module.exports = {
         // ...
@@ -118,7 +122,7 @@ This repo represents a _plugin_ for **Vuepress** and an importable NPM module yo
 
     If you want to register certain components as always being _block_ html elements:
 
-    `docs/.vitepress/config.js`
+    `docs/.vuepress/config.js`
     ```js
     module.exports = {
         // ...
@@ -149,7 +153,7 @@ While **Vitepress** doesn't provide a _plugin_ mechanism it still provides you a
 
     `docs/.vitepress/config.js`:
     ```js
-    const markdown = require("v-press-plus").markdown;
+    const markdown = require("v-press-plus/dist/vitepress").markdown;
 
     module.exports = {
         // ...
@@ -160,9 +164,9 @@ While **Vitepress** doesn't provide a _plugin_ mechanism it still provides you a
 
     This approach will get you up and running but if you want to pre-register some VueJS components (aka, so they'll always be treated as HTML Block elements), or you want to modify the `markdown` property in other ways than just this plugin, you can do the following instead:
 
-        `docs/.vitepress/config.js`:
+   `docs/.vitepress/config.js`:
     ```js
-    const htmlBlock = require("v-press-plus").htmlBlock;
+    const htmlBlock = require("v-press-plus/dist/vitepress/index").htmlBlock;
 
     module.exports = {
         // ...
@@ -175,4 +179,16 @@ While **Vitepress** doesn't provide a _plugin_ mechanism it still provides you a
     } 
     ```
 
- 
+## Running in Debug Mode
+
+If you ever want to see this plugin's comments about it's parsing rules you can run it in DEBUG mode:
+
+```sh
+# Vuepress
+DEBUG=v-press-plus TERM=xterm-color yarn vuepress dev docs \
+2>&1 >/dev/null | sed s/\\033//g 
+
+# Vitepress
+DEBUG=v-press-plus TERM=xterm-color yarn vitepress dev docs \
+2>&1 >/dev/null | sed s/\\033//g 
+ ```

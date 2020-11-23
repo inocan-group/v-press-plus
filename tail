@@ -1,2 +1,0 @@
-yarn run v1.22.10
-$ DEBUG=v-press-plus yarn vuepress dev docs 2>&1 >/dev/null | sed s/\033//g  -f

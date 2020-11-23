@@ -5,8 +5,8 @@ import { join } from 'path';
 
 const t = suite('vuepress plugin');
 
-const main = join(process.cwd(), './dist/cjs/index.js');
-const mainMin = join(process.cwd(), './dist/cjs/index.min.js');
+const main = join(process.cwd(), './dist/vuepress/index.js');
+const mainMin = join(process.cwd(), './dist/vuepress/index.min.js');
 
 t('entry points are available', () => {
   assert.ok(existsSync(main));

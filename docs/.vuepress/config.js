@@ -1,16 +1,12 @@
 const { path } = require('@vuepress/shared-utils');
 const fs = require('fs');
-const pluginPath = path.resolve('dist/cjs/index.js');
+const pluginPath = path.resolve('./dist/vuepress');
 const vPressPlus = require(pluginPath);
-fs.writeFileSync(
-  path.join(process.cwd(), 'plugin.txt'),
-  `Plugin path is: "${pluginPath}", import is: ${vPressPlus.toString()}, typeof is ${typeof vPressPlus}\n`,
-);
 
 module.exports = {
   title: 'v-press-plus',
   description: 'Better support for VueJS components in a Vuepress or Vitepress project',
-  plugins: [vPressPlus],
+  // plugins: [vPressPlus],
   themeConfig: {
     nav: [
       {

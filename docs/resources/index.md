@@ -1,11 +1,6 @@
 # Resources
 
-<div>
-<More>
-    this is more with DIV wrap
-</More>
-</div>
-
-- MarkdownIt API
-- Markdown Spec
-- Vuepress: [plugins](), [foo] 
+- [MarkdownIt API](https://markdown-it.github.io/markdown-it/)
+- [Markdown Spec](https://spec.commonmark.org/0.29/)
+- [Vuepress Plugins]()
+- [Vitepress Config]()

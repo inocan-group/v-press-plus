@@ -5,7 +5,7 @@ import { join } from 'path';
 
 const t = suite('vitepress plugin');
 
-const esModule = join(process.cwd(), './dist/es/index.js');
+const esModule = join(process.cwd(), './dist/vitepress/index.js');
 
 t('entry points available', () => {
   assert.ok(existsSync(esModule));
