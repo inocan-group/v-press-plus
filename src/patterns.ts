@@ -28,9 +28,7 @@ export const HTML_SEQUENCES: [open: RegExp, close: RegExp, outcome: boolean][] =
   [/^<[A-Z]/, />/, true],
   // inline custom elements with hyphens
   [/^<\w+\-/, />/, true],
-  [new RegExp("^</?(" + blockNames.join("|") + ")(?=(\\s|/?>|$))", "i"), /^$/, true],
-
   ...HTML_BLOCK_PATTERNS,
-
+  [new RegExp("^</?(" + blockNames.join("|") + ")(?=(\\s|/?>|$))", "i"), /^$/, true],
   [new RegExp(HTML_OPEN_CLOSE_TAG_RE.source + "\\s*$"), /^$/, false],
 ];

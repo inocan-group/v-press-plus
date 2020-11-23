@@ -1,6 +1,6 @@
 {
   "name": "v-press-plus",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Adds better support for VueJS components in a Vuepress or Vitepress project",
   "main": "dist/vuepress/cjs/index.js",
   "typings": "dist/@types/index.js",
@@ -19,6 +19,10 @@
   },
   "author": "Ken Snyder <ken@ken.net>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:inocan-group/v-press-plus.git"
+  },
   "dependencies": {
     "native-dash": "^1.6.1",
     "markdown-it": "12"
