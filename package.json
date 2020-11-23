@@ -13,7 +13,7 @@
     "build:types": "echo - Building types && tsc -P tsconfig.es.json --outDir dist/@types --declaration --emitDeclarationOnly",
     "docs": "yarn vuepress dev docs",
     "docs:debug": "DEBUG=v-press-plus TERM=xterm-color yarn vuepress dev docs 2>&1 >/dev/null | sed s/\\033//g ",
-    "docs:build": "yarn vuepress build docs",
+    "docs:build": "yarn build && yarn vuepress build docs",
     "test": "yarn uvu tests -r ts-node/register",
     "watch": "watchlist src -- yarn build"
   },
