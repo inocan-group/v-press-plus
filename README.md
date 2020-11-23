@@ -6,7 +6,6 @@
 
 Check out all the docs at: [https://v-press-plus.netlify.app/](https://v-press-plus.netlify.app/)
 
-
 ## Contributing
 
 If you are interested in contributing, we're happy to accept PR's on the @develop branch (we use _gitflow_ with PR's and feature branches hitting develop before being released).
