@@ -1,6 +1,6 @@
 {
   "name": "v-press-plus",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Adds better support for VueJS components in a Vuepress or Vitepress project",
   "main": "dist/vuepress/cjs/index.js",
   "typings": "dist/@types/index.js",
